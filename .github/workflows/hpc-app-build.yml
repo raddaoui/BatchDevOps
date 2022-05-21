@@ -42,5 +42,7 @@ jobs:
           pwd
           ls
           mkdir temp
-          unzip -qq ./hpcapp.zip -d ./temp/target
+          unzip -qq hpcapp.zip -d ./temp/target
+          ls
+          ls temp
 
