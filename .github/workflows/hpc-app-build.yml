@@ -31,7 +31,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Archive HPC app
         run: |
-          zip -qq -r ./hpcapp.zip ./hpc-application/ffmpeg-3.4-win64-static
+          cd hpc-application
+          zip -r ../hpcapp.zip ./ffmpeg-3.4-win64-static
           ls
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -42,5 +43,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           pwd
-          ls temp
+          ls temp/ffmpeg-3.4-win64-static
 
