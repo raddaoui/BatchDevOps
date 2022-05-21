@@ -39,10 +39,11 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          pwd
-          ls
           mkdir temp
           unzip -qq hpcapp.zip -d ./temp/target
-          ls
-          ls temp
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          pwd
+          ls temp/target
 
