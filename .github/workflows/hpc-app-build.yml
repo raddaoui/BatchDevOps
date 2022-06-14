@@ -16,6 +16,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  AZURE_SUBSCRIPTION_ID: "2d29908b-9e1b-407e-8678-73678dbc8a62"
+  AZURE_RESOURCE_GROUP: "BatchDevops-rg"
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -55,4 +59,25 @@ jobs:
         run: |
           pwd
           ls temp/ffmpeg-3.4-win64-static
+
+  deploy-arm-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@main
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy ARM Template
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ env.AZURE_RESOURCE_GROUP }}
+          deploymentName: batchresources-${{ github.sha }}
+          template: ./arm-templates/deployment.json
+          parameters: templateContainerUri=https://raw.githubusercontent.com/raddaoui/BatchDevOps/main/arm-templates applicationStorageAccountName=testbaalasa batchAccountName=testbaala batchAccountPoolName=pool1
 
