@@ -1,0 +1,87 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templateContainerUri": {
+           "type": "string",
+           "metadata": {
+                "description": "URI of the Blob Storage Container containing the Azure Resource Manager templates"
+            }
+        },
+        "applicationStorageAccountName": {
+            "type": "string",
+            "metadata": {
+                 "description": "Name of the Azure Storage Account"
+            }
+         },
+        "batchAccountName": {
+            "type": "string",
+            "metadata": {
+                 "description": "Name of the Azure Batch Account"
+            }
+         },
+         "batchAccountPoolName": {
+             "type": "string",
+             "metadata": {
+                  "description": "Name of the Azure Batch Account Pool"
+              }
+          }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "storageAccountDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                  "uri": "[concat(parameters('templateContainerUri'), '/storageAccount.json')]",
+                  "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "accountName": {"value": "[parameters('applicationStorageAccountName')]"}
+                }
+            }
+        },  
+        {
+            "apiVersion": "2017-05-10",
+            "name": "batchAccountDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "storageAccountDeployment"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                  "uri": "[concat(parameters('templateContainerUri'), '/batchAccount.json')]",
+                  "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "batchAccountName": {"value": "[parameters('batchAccountName')]"},
+                    "storageAccountId": {"value": "[reference('storageAccountDeployment').outputs.resourceId.value]"}
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "poolDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "batchAccountDeployment"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                  "uri": "[concat(parameters('templateContainerUri'), '/batchAccountPool.json')]",
+                  "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "batchAccountName": {"value": "[parameters('batchAccountName')]"},
+                    "batchAccountPoolName": {"value": "[parameters('batchAccountPoolName')]"}
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
