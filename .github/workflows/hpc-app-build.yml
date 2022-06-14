@@ -37,14 +37,14 @@ jobs:
         run: |
           mkdir package
           pushd hpc-application
-          zip -r ../package/{{ github.sha }}.zip ./ffmpeg-3.4-win64-static
+          zip -r ../package/${{ github.sha }}.zip ./ffmpeg-3.4-win64-static
           popd
           ls
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           mkdir temp
-          unzip -qq package/{{ github.sha }}.zip -d ./temp
+          unzip -qq package/${{ github.sha }}.zip -d ./temp
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
