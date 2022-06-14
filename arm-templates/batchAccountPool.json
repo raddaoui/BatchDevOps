@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "batchAccountName": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the Azure Batch Account"
+           }
+        },
+        "batchAccountPoolName": {
+            "type": "string",
+            "metadata": {
+                 "description": "Name of the Azure Batch Account Pool"
+             }
+         }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[concat(parameters('batchAccountName'),'/', parameters('batchAccountPoolName'))]",
+            "type": "Microsoft.Batch/batchAccounts/pools",
+            "apiVersion": "2017-09-01",
+            "properties": {
+                "deploymentConfiguration": {
+                    "virtualMachineConfiguration": {
+                        "imageReference": {
+                            "publisher": "Canonical",
+                            "offer": "UbuntuServer",
+                            "sku": "18.04-LTS",
+                            "version": "latest"
+                        },
+                        "nodeAgentSkuId": "batch.node.ubuntu 18.04"
+                    }
+                },
+                "vmSize": "Standard_D1_v2"
+            }
+          }
+    ],
+    "outputs": {}
+}
