@@ -1,6 +1,6 @@
 Zeranoe FFmpeg Builds <http://ffmpeg.zeranoe.com/builds/>
 
-Build: ffmpeg-3.4-win64-static
+Build: ffmpeg-3.4-win64-static 
 
 Configuration:
   --enable-gpl
