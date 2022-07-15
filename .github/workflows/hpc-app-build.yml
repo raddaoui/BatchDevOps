@@ -78,7 +78,7 @@ jobs:
           resourceGroupName: ${{ env.AZURE_RESOURCE_GROUP }}
           deploymentName: batchresources-${{ github.sha }}
           template: ./arm-templates/deployment.json
-          parameters: templateContainerUri=https://raw.githubusercontent.com/raddaoui/BatchDevOps/main/arm-templates applicationStorageAccountName=testbaalasa batchAccountName={{ env.batchAccountName }} batchAccountPoolName={{ env.batchAccountPoolName }}
+          parameters: templateContainerUri=https://raw.githubusercontent.com/raddaoui/BatchDevOps/main/arm-templates applicationStorageAccountName=testbaalasa batchAccountName=${{ env.batchAccountName }} batchAccountPoolName=${{ env.batchAccountPoolName }}
 
   deploy-batch-application:
     # The type of runner that the job will run on
