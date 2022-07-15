@@ -91,7 +91,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Create Application in batch Account
-        run: az batch application create --application-id ${{ env.batchAppID }} --name ${{ env.batchAccountName }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
+        run: az batch application create --application-name ${{ env.batchAppName }} --name ${{ env.batchAccountName }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
 
       - uses: actions/download-artifact@v3
         with:
