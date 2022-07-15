@@ -108,7 +108,7 @@ jobs:
         working-directory: ./downloads
         
       - name: Upload package to Azure Batch account
-        run: az batch application package create --application-name ${{ env.batchAppName }} --name ${{ env.batchAccountName }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --version ${{ env.batchApplicationVersion }} --package-file=./Downloads/${{ github.sha }}.zip
+        run: az batch application package create --application-name ${{ env.batchAppName }} --name ${{ env.batchAccountName }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --version ${{ env.batchApplicationVersion }} --package-file=./downloads/${{ github.sha }}.zip
       - name: Azure logout
         run: |
           az logout
