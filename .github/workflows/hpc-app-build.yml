@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -90,6 +90,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
       - name: Create Application in batch Account
         run: az batch application create --application-name ${{ env.batchAppName }} --name ${{ env.batchAccountName }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
 
@@ -104,5 +109,8 @@ jobs:
         
       #- name: Upload package to Azure Batch account
       #  run: az batch application package create --application-name ${{ env.batchAppName }} --name ${{ env.batchAccountName }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --version ${{ env.batchApplicationVersion }} --package-file=$(System.DefaultWorkingDirectory)/$(Release.Artifacts.{YourBuildArtifactSourceAlias}.BuildId).zip
+      - name: Azure logout
+        run: |
+          az logout
 
       
