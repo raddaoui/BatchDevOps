@@ -15,20 +15,20 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_SUBSCRIPTION_ID: "2d29908b-9e1b-407e-8678-73678dbc8a62"
-  AZURE_RESOURCE_GROUP: "ocr-batch-rg"
-  batchAccountName: "batchaccount19492"
-  batchAccountPoolName: "pool1"
-  batchAppName: "ffmpeg"
-  batchApplicationVersion: "4.3.1"
-  applicationStorageAccountName: "batchsaala"
   #AZURE_SUBSCRIPTION_ID: "2d29908b-9e1b-407e-8678-73678dbc8a62"
-  #AZURE_RESOURCE_GROUP: "BatchDevops-rg"
-  #batchAccountName: "testbaala"
+  #AZURE_RESOURCE_GROUP: "ocr-batch-rg"
+  #batchAccountName: "batchaccount19492"
   #batchAccountPoolName: "pool1"
   #batchAppName: "ffmpeg"
   #batchApplicationVersion: "4.3.1"
-  #applicationStorageAccountName: "testbaalasa"
+  #applicationStorageAccountName: "batchsaala"
+  AZURE_SUBSCRIPTION_ID: "2d29908b-9e1b-407e-8678-73678dbc8a62"
+  AZURE_RESOURCE_GROUP: "BatchDevops-rg"
+  batchAccountName: "testbaala"
+  batchAccountPoolName: "pool1"
+  batchAppName: "ffmpeg"
+  batchApplicationVersion: "4.3.1"
+  applicationStorageAccountName: "testbaalasa"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
